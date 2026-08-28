@@ -7,7 +7,7 @@ public class Config {
 
     public static final ModConfigSpec.BooleanValue ENABLE_DEBUGGING = BUILDER
             .comment("Whether to enable debugging")
-            .define("enableDebugging", true);
+            .define("enableDebugging", false);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 }
