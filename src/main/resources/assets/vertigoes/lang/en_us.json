@@ -1,0 +1,10 @@
+{
+  "itemGroup.vertigoes": "Vertigoes",
+  "block.vertigoes.myosotis": "Myosotis",
+  "item.vertigoes.primal_pearl": "Primal Pearl",
+
+  "vertigoes.configuration.title": "Vertigoes Configs",
+  "vertigoes.configuration.section.vertigoes.common.toml": "Vertigoes Configs",
+  "vertigoes.configuration.section.vertigoes.common.toml.title": "Vertigoes Configs",
+  "vertigoes.configuration.enableDebugging": "Enable Debugging"
+}
