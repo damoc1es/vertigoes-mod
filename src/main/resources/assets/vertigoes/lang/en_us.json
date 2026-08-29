@@ -1,6 +1,8 @@
 {
   "itemGroup.vertigoes": "Vertigoes",
+
   "block.vertigoes.myosotis": "Myosotis",
+  "item.vertigoes.ender_myosotis": "Ender Myosotis",
   "item.vertigoes.primal_pearl": "Primal Pearl",
 
   "vertigoes.configuration.title": "Vertigoes Configs",

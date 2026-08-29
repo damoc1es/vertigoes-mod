@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [ { "item": "vertigoes:myosotis" } ],
+  "result": {
+    "id": "vertigoes:myosotis"
+  }
+}

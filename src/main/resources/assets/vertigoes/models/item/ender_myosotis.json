@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "vertigoes:block/myosotis"
+    "layer0": "vertigoes:item/ender_myosotis"
   }
 }

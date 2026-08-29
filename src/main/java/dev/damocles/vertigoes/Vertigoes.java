@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import dev.damocles.vertigoes.block.MyosotisBlock;
+import dev.damocles.vertigoes.block.PottedMyosotisBlock;
+import dev.damocles.vertigoes.item.EnderMyosotisItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
@@ -11,9 +14,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -42,8 +46,11 @@ public class Vertigoes {
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "vertigoes" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final DeferredBlock<Block> MYOSOTIS = BLOCKS.registerSimpleBlock("myosotis", BlockBehaviour.Properties.of().mapColor(MapColor.PLANT));
+    public static final DeferredBlock<Block> MYOSOTIS = BLOCKS.registerBlock("myosotis", MyosotisBlock::new);
     public static final DeferredItem<BlockItem> MYOSOTIS_ITEM = ITEMS.registerSimpleBlockItem("myosotis", MYOSOTIS);
+    public static final DeferredBlock<FlowerPotBlock> POTTED_MYOSOTIS = BLOCKS.registerBlock("potted_myosotis", PottedMyosotisBlock::new);
+
+    public static final DeferredItem<Item> ENDER_MYOSOTIS = ITEMS.registerItem("ender_myosotis", EnderMyosotisItem::new);
 
     public static final DeferredItem<Item> PRIMAL_PEARL = ITEMS.registerSimpleItem("primal_pearl", new Item.Properties().food(new FoodProperties.Builder()
             .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
@@ -55,7 +62,7 @@ public class Vertigoes {
             .icon(() -> MYOSOTIS_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(MYOSOTIS_ITEM.get());
-                output.accept(PRIMAL_PEARL.get());
+                output.accept(ENDER_MYOSOTIS.get());
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
@@ -70,6 +77,9 @@ public class Vertigoes {
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
+
+        FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        pot.addPlant(MYOSOTIS.getId(), POTTED_MYOSOTIS);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (Vertigoes) to respond directly to events.
