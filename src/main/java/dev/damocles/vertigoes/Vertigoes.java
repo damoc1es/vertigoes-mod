@@ -5,16 +5,20 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import dev.damocles.vertigoes.block.MyosotisBlock;
+import dev.damocles.vertigoes.block.PlantEssenceBlock;
 import dev.damocles.vertigoes.block.PottedMyosotisBlock;
 import dev.damocles.vertigoes.item.EnderMyosotisItem;
+import dev.damocles.vertigoes.item.pearl.AnimalPearlItem;
+import dev.damocles.vertigoes.item.pearl.AquaticPearlItem;
+import dev.damocles.vertigoes.item.pearl.DeathPearlItem;
+import dev.damocles.vertigoes.item.pearl.PlantPearlItem;
+import dev.damocles.vertigoes.item.pearl.PrimalPearlItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -52,17 +56,23 @@ public class Vertigoes {
 
     public static final DeferredItem<Item> ENDER_MYOSOTIS = ITEMS.registerItem("ender_myosotis", EnderMyosotisItem::new);
 
-    public static final DeferredItem<Item> PRIMAL_PEARL = ITEMS.registerSimpleItem("primal_pearl", new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+    public static final DeferredItem<Item> PRIMAL_PEARL = ITEMS.registerItem("primal_pearl", PrimalPearlItem::new);
+    public static final DeferredItem<Item> PLANT_PEARL = ITEMS.registerItem("plant_pearl", PlantPearlItem::new);
+    public static final DeferredItem<Item> ANIMAL_PEARL = ITEMS.registerItem("animal_pearl", AnimalPearlItem::new);
+    public static final DeferredItem<Item> AQUATIC_PEARL = ITEMS.registerItem("aquatic_pearl", AquaticPearlItem::new);
+    public static final DeferredItem<Item> DEATH_PEARL = ITEMS.registerItem("death_pearl", DeathPearlItem::new);
 
-    // Creates a creative tab with the id "vertigoes:vertigoes_tab" placed after the combat tab
+    public static final DeferredBlock<Block> PLANT_ESSENCE = BLOCKS.registerBlock("plant_essence", PlantEssenceBlock::new);
+    public static final DeferredItem<BlockItem> PLANT_ESSENCE_ITEM = ITEMS.registerSimpleBlockItem("plant_essence", PLANT_ESSENCE);
+
+    // Creates a creative tab with the id "vertigoes:vertigoes_tab"
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> VERTIGOES_TAB = CREATIVE_MODE_TABS.register("vertigoes_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.vertigoes"))
-            .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> MYOSOTIS_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(MYOSOTIS_ITEM.get());
-                output.accept(ENDER_MYOSOTIS.get());
+                for(DeferredHolder<Item, ? extends Item> entry : ITEMS.getEntries()) {
+                    output.accept(entry.get());
+                }
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "vertigoes:item/primal_pearl"
+    "layer0": "vertigoes:item/aquatic_pearl"
   }
 }

@@ -3,7 +3,14 @@
 
   "block.vertigoes.myosotis": "Myosotis",
   "item.vertigoes.ender_myosotis": "Ender Myosotis",
+
   "item.vertigoes.primal_pearl": "Primal Pearl",
+  "item.vertigoes.plant_pearl": "Primal Pearl",
+  "item.vertigoes.animal_pearl": "Primal Pearl",
+  "item.vertigoes.aquatic_pearl": "Primal Pearl",
+  "item.vertigoes.death_pearl": "Primal Pearl",
+
+  "block.vertigoes.plant_essence": "Plant Essence",
 
   "vertigoes.configuration.title": "Vertigoes Configs",
   "vertigoes.configuration.section.vertigoes.common.toml": "Vertigoes Configs",
