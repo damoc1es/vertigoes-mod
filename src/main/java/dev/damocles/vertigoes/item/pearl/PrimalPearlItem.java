@@ -2,6 +2,8 @@ package dev.damocles.vertigoes.item.pearl;
 
 import java.util.List;
 
+import dev.damocles.vertigoes.Config;
+import dev.damocles.vertigoes.Const;
 import dev.damocles.vertigoes.Vertigoes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -29,7 +31,6 @@ public class PrimalPearlItem extends PearlItem {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack item = player.getInventory().getItem(i);
 
-            // TODO: Use custom DataComponents
             if (item.is(Vertigoes.PRIMAL_PEARL.get())) {
                 CompoundTag tags;
 
@@ -73,21 +74,27 @@ public class PrimalPearlItem extends PearlItem {
     }
 
     public static void tryTransformToAnimalPearl(Player player) {
-        // TODO: Make configurable
-        tryTransformToGeneralPearl(player, "vertigoes.animalprogress", 20, Vertigoes.ANIMAL_PEARL.get().getDefaultInstance());
-    }
-
-    public static void tryTransformToDeathPearl(Player player, Entity entity) {
-        if(entity instanceof Villager) {
-            // TODO: Make configurable
-            tryTransformToGeneralPearl(player, "vertigoes.deathprogress", 13, Vertigoes.DEATH_PEARL.get().getDefaultInstance());
-        }
+        tryTransformToGeneralPearl(player,
+            Const.PRIMAL_PEARL_ANIMAL_PROGRESS_TAG,
+            Config.ANIMAL_PEARL_REQ.getAsInt(),
+            Vertigoes.ANIMAL_PEARL.get().getDefaultInstance());
     }
 
     public static void tryTransformToAquaticPearl(Player player, Entity entity) {
         if(entity instanceof Drowned) {
-            // TODO: Make configurable
-            tryTransformToGeneralPearl(player, "vertigoes.aquaticprogress", 25, Vertigoes.AQUATIC_PEARL.get().getDefaultInstance());
+            tryTransformToGeneralPearl(player,
+                Const.PRIMAL_PEARL_AQUATIC_PROGRESS_TAG,
+                Config.AQUATIC_PEARL_REQ.getAsInt(),
+                Vertigoes.AQUATIC_PEARL.get().getDefaultInstance());
+        }
+    }
+
+    public static void tryTransformToDeathPearl(Player player, Entity entity) {
+        if(entity instanceof Villager) {
+            tryTransformToGeneralPearl(player,
+                Const.PRIMAL_PEARL_DEATH_PROGRESS_TAG,
+                Config.DEATH_PEARL_REQ.getAsInt(),
+                Vertigoes.DEATH_PEARL.get().getDefaultInstance());
         }
     }
 
@@ -97,28 +104,25 @@ public class PrimalPearlItem extends PearlItem {
 
         if(stack.has(DataComponents.CUSTOM_DATA)) {
             CompoundTag tags = stack.get(DataComponents.CUSTOM_DATA).copyTag();
-            if(tags.contains("vertigoes.animalprogress")) {
-                // TODO: Make configurable
+            if(tags.contains(Const.PRIMAL_PEARL_ANIMAL_PROGRESS_TAG)) {
                 tooltipComponents.add(Component.literal(String.format("%d / %d Bred animals",
-                                                        tags.getInt("vertigoes.animalprogress"),
-                                                        20))
+                                                        tags.getInt(Const.PRIMAL_PEARL_ANIMAL_PROGRESS_TAG),
+                                                        Config.ANIMAL_PEARL_REQ.getAsInt()))
                                                         .withStyle(ChatFormatting.RED));
             }
 
-            if(tags.contains("vertigoes.deathprogress")) {
-                // TODO: Make configurable
-                tooltipComponents.add(Component.literal(String.format("%d / %d Villagers killed",
-                                                        tags.getInt("vertigoes.deathprogress"),
-                                                        13))
-                                                        .withStyle(ChatFormatting.DARK_GRAY));
+            if(tags.contains(Const.PRIMAL_PEARL_AQUATIC_PROGRESS_TAG)) {
+                tooltipComponents.add(Component.literal(String.format("%d / %d Drowned killed",
+                                                        tags.getInt(Const.PRIMAL_PEARL_AQUATIC_PROGRESS_TAG),
+                                                        Config.AQUATIC_PEARL_REQ.getAsInt()))
+                                                        .withStyle(ChatFormatting.DARK_AQUA));
             }
 
-            if(tags.contains("vertigoes.aquaticprogress")) {
-                // TODO: Make configurable
-                tooltipComponents.add(Component.literal(String.format("%d / %d Drowned killed",
-                                                        tags.getInt("vertigoes.aquaticprogress"),
-                                                        25))
-                                                        .withStyle(ChatFormatting.DARK_AQUA));
+            if(tags.contains(Const.PRIMAL_PEARL_DEATH_PROGRESS_TAG)) {
+                tooltipComponents.add(Component.literal(String.format("%d / %d Villagers killed",
+                                                        tags.getInt(Const.PRIMAL_PEARL_DEATH_PROGRESS_TAG),
+                                                        Config.DEATH_PEARL_REQ.getAsInt()))
+                                                        .withStyle(ChatFormatting.DARK_GRAY));
             }
         }
     }

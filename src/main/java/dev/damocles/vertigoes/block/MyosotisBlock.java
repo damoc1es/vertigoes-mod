@@ -25,6 +25,8 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import dev.damocles.vertigoes.Const;
+
 
 public class MyosotisBlock extends FlowerBlock {
 
@@ -38,14 +40,11 @@ public class MyosotisBlock extends FlowerBlock {
             getDrops(blockState, (ServerLevel)level, pos, blockEntity, player, tool).forEach((itemDrop) -> {
                 // Set tag of drop with the coordinates and dimension of last placement
                 CompoundTag tags = new CompoundTag();
-                tags.putBoolean("vertigoes.wasPlaced", true);
-                // TODO: Convert to integers
-                tags.putDouble("vertigoes.coordX", pos.getX());
-                tags.putDouble("vertigoes.coordY", pos.getY());
-                tags.putDouble("vertigoes.coordZ", pos.getZ());
-                tags.putString("vertigoes.dim", level.dimension().location().toString());
+                tags.putDouble(Const.MYOSOTIS_COORD_X_TAG, pos.getX());
+                tags.putDouble(Const.MYOSOTIS_COORD_Y_TAG, pos.getY());
+                tags.putDouble(Const.MYOSOTIS_COORD_Z_TAG, pos.getZ());
+                tags.putString(Const.MYOSOTIS_DIMENSION_TAG, level.dimension().location().toString());
 
-                // TODO: Create custom DataComponent
                 itemDrop.set(DataComponents.CUSTOM_DATA, CustomData.of(tags));
                 popResource(level, pos, itemDrop);
             });
@@ -64,15 +63,16 @@ public class MyosotisBlock extends FlowerBlock {
         // Setting the tooltip depending on if it was ever placed
         if(stack.get(DataComponents.CUSTOM_DATA) != null) {
             CompoundTag currentTags = stack.get(DataComponents.CUSTOM_DATA).copyTag();
-            if(currentTags.contains("vertigoes.wasPlaced") && currentTags.getBoolean("vertigoes.wasPlaced")) { //
-                double coordX = currentTags.getDouble("vertigoes.coordX");
-                double coordY = currentTags.getDouble("vertigoes.coordY");
-                double coordZ = currentTags.getDouble("vertigoes.coordZ");
-                String dim = currentTags.getString("vertigoes.dim");
-                if(dim.contains(":"))
+            if(currentTags.contains(Const.MYOSOTIS_COORD_X_TAG)) {
+                double coordX = currentTags.getDouble(Const.MYOSOTIS_COORD_X_TAG);
+                double coordY = currentTags.getDouble(Const.MYOSOTIS_COORD_Y_TAG);
+                double coordZ = currentTags.getDouble(Const.MYOSOTIS_COORD_Z_TAG);
+                String dim = currentTags.getString(Const.MYOSOTIS_DIMENSION_TAG);
+                if(dim.contains(":")) {
                     dim = dim.substring(dim.indexOf(":")+1);
+                }
 
-                tooltip.add(Component.literal(String.format("(x=%.2f, y=%.2f, z=%.2f) in %s", coordX, coordY, coordZ, dim)).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.literal(String.format("(x=%d, y=%d, z=%d) in %s", (int)coordX, (int)coordY, (int)coordZ, dim)).withStyle(ChatFormatting.GRAY));
             }
         } else {
             tooltip.add(Component.literal("Forget me not..").withStyle(ChatFormatting.GRAY));

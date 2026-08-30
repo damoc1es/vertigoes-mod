@@ -2,8 +2,10 @@ package dev.damocles.vertigoes.item.pearl;
 
 import java.util.List;
 
+import dev.damocles.vertigoes.Vertigoes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -40,6 +42,14 @@ public class PearlItem extends Item {
                 break;
             default:
                 break;
+        }
+    }
+
+    public static void disablePearl(Player player, Item pearlVariant) {
+        for(int i=0; i<player.getInventory().getContainerSize(); i++) {
+            if(player.getInventory().getItem(i).is(pearlVariant)) {
+                player.getInventory().setItem(i, Vertigoes.PRIMAL_PEARL.get().getDefaultInstance());
+            }
         }
     }
 }

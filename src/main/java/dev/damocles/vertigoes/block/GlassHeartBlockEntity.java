@@ -2,6 +2,8 @@ package dev.damocles.vertigoes.block;
 
 import java.util.List;
 
+import dev.damocles.vertigoes.Config;
+import dev.damocles.vertigoes.Const;
 import dev.damocles.vertigoes.Vertigoes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -19,13 +21,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 public class GlassHeartBlockEntity extends BlockEntity {
+    public MobEffectInstance effectInstance = null;
+    public int tickCount;
+
     public GlassHeartBlockEntity(BlockPos pos, BlockState blockState) {
         super(Vertigoes.GLASS_HEART_ENTITY.get(), pos, blockState);
     }
-
-    public int tickCount;
-    MobEffectInstance effectInstance = null;
-    int effectAmplifier;
 
     private static void applyEffects(Level level, BlockPos pos, MobEffectInstance effectInstance) {
         if (!level.isClientSide) {
@@ -40,10 +41,7 @@ public class GlassHeartBlockEntity extends BlockEntity {
                 amplifier = 1;
             }
 
-            // TODO: Make radius configurable
-            int radius = 4;
-
-            AABB aabb = (new AABB(pos)).inflate(radius).expandTowards(0.0D, 0.0D, 0.0D);
+            AABB aabb = (new AABB(pos)).inflate(Config.GLASS_HEART_RADIUS.getAsInt()).expandTowards(0.0D, 0.0D, 0.0D);
             List<Entity> list = level.getEntities(null, aabb);
 
             for(Entity entity : list) {
@@ -57,17 +55,18 @@ public class GlassHeartBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
+
         if(this.effectInstance != null) {
-            tag.put("Effect", MobEffectInstance.CODEC.encodeStart(NbtOps.INSTANCE, this.effectInstance).getOrThrow());
+            tag.put(Const.GLASS_HEART_EFFECT, MobEffectInstance.CODEC.encodeStart(NbtOps.INSTANCE, this.effectInstance).getOrThrow());
         }
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        // TODO: Get rid of magic strings
-        if(tag.contains("Effect")) {
-            this.effectInstance = MobEffectInstance.CODEC.parse(NbtOps.INSTANCE, tag.get("Effect")).getOrThrow();
+
+        if(tag.contains(Const.GLASS_HEART_EFFECT)) {
+            this.effectInstance = MobEffectInstance.CODEC.parse(NbtOps.INSTANCE, tag.get(Const.GLASS_HEART_EFFECT)).getOrThrow();
         }
     }
 

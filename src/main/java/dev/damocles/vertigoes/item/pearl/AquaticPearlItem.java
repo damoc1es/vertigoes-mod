@@ -1,5 +1,6 @@
 package dev.damocles.vertigoes.item.pearl;
 
+import dev.damocles.vertigoes.Config;
 import dev.damocles.vertigoes.Vertigoes;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,11 +34,8 @@ public class AquaticPearlItem extends PearlItem {
     }
 
     public static void disablePearl(Player player) {
-        // TODO: Make disabling configurable
-        for(int i=0; i<player.getInventory().getContainerSize(); i++) {
-            if(player.getInventory().getItem(i).is(Vertigoes.AQUATIC_PEARL.get())) {
-                player.getInventory().setItem(i, Vertigoes.PRIMAL_PEARL.get().getDefaultInstance());
-            }
+        if(Config.AQUATIC_PEARL_CAN_BE_DISABLED.getAsBoolean()) {
+            PearlItem.disablePearl(player, Vertigoes.AQUATIC_PEARL.get());
         }
     }
 }

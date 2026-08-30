@@ -17,5 +17,13 @@
   "vertigoes.configuration.title": "Vertigoes Configs",
   "vertigoes.configuration.section.vertigoes.common.toml": "Vertigoes Configs",
   "vertigoes.configuration.section.vertigoes.common.toml.title": "Vertigoes Configs",
+
+  "vertigoes.configuration.primalPearlAnimalReq": "Animal Life Primal Pearl requirement",
+  "vertigoes.configuration.primalPearlAquaticReq": "Aquatic Life Primal Pearl requirement",
+  "vertigoes.configuration.primalPearlDeathReq": "Death Primal Pearl requirement",
+  "vertigoes.configuration.primalPearlAnimalCanBeDisabled": "Animal Life Primal Pearl can be disabled",
+  "vertigoes.configuration.primalPearlAquaticCanBeDisabled": "Aquatic Life Primal Pearl can be disabled",
+  "vertigoes.configuration.primalPearlDeathCanBeDisabled": "Death Primal Pearl can be disabled",
+  "vertigoes.configuration.glassHeartRadius": "Heart of Glass radius",
   "vertigoes.configuration.enableDebugging": "Enable Debugging"
 }

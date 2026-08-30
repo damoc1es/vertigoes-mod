@@ -3,6 +3,8 @@ package dev.damocles.vertigoes.item;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
+
+import dev.damocles.vertigoes.Const;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -25,13 +27,12 @@ public class EnderMyosotisItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if(stack.get(DataComponents.CUSTOM_DATA) != null) {
-            // TODO: Create custom DataComponent and convert to integers the coordinates
             CompoundTag currentTags = stack.get(DataComponents.CUSTOM_DATA).copyTag();
-            if(currentTags.contains("vertigoes.wasPlaced") && currentTags.getBoolean("vertigoes.wasPlaced")) { //
-                double coordX = currentTags.getDouble("vertigoes.coordX");
-                double coordY = currentTags.getDouble("vertigoes.coordY");
-                double coordZ = currentTags.getDouble("vertigoes.coordZ");
-                String dim = currentTags.getString("vertigoes.dim");
+            if(currentTags.contains(Const.MYOSOTIS_COORD_X_TAG)) {
+                double coordX = currentTags.getDouble(Const.MYOSOTIS_COORD_X_TAG);
+                double coordY = currentTags.getDouble(Const.MYOSOTIS_COORD_Y_TAG);
+                double coordZ = currentTags.getDouble(Const.MYOSOTIS_COORD_Z_TAG);
+                String dim = currentTags.getString(Const.MYOSOTIS_DIMENSION_TAG);
                 if(dim.contains(":")) {
                     dim = dim.substring(dim.indexOf(":")+1);
                 }
@@ -49,11 +50,10 @@ public class EnderMyosotisItem extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         if(player.isShiftKeyDown()) {
             CompoundTag tags = new CompoundTag();
-            tags.putBoolean("vertigoes.wasPlaced", true);
-            tags.putDouble("vertigoes.coordX", player.getX());
-            tags.putDouble("vertigoes.coordY", player.getY());
-            tags.putDouble("vertigoes.coordZ", player.getZ());
-            tags.putString("vertigoes.dim", level.dimension().location().toString());
+            tags.putDouble(Const.MYOSOTIS_COORD_X_TAG, player.getX());
+            tags.putDouble(Const.MYOSOTIS_COORD_Y_TAG, player.getY());
+            tags.putDouble(Const.MYOSOTIS_COORD_Z_TAG, player.getZ());
+            tags.putString(Const.MYOSOTIS_DIMENSION_TAG, level.dimension().location().toString());
             ItemStack itemstack = player.getItemInHand(hand);
             itemstack.set(DataComponents.CUSTOM_DATA, CustomData.of(tags));
             return InteractionResultHolder.success(itemstack);
@@ -63,12 +63,12 @@ public class EnderMyosotisItem extends Item {
             CompoundTag currentTags = itemstack.get(DataComponents.CUSTOM_DATA).copyTag();
             if(currentTags != null) {
                 if (!level.isClientSide) {
-                    String dim = currentTags.getString("vertigoes.dim");
+                    String dim = currentTags.getString(Const.MYOSOTIS_DIMENSION_TAG);
 
                     if(player.level().dimension().location().toString().equals(dim)) {
-                        double coordX = currentTags.getDouble("vertigoes.coordX");
-                        double coordY = currentTags.getDouble("vertigoes.coordY");
-                        double coordZ = currentTags.getDouble("vertigoes.coordZ");
+                        double coordX = currentTags.getDouble(Const.MYOSOTIS_COORD_X_TAG);
+                        double coordY = currentTags.getDouble(Const.MYOSOTIS_COORD_Y_TAG);
+                        double coordZ = currentTags.getDouble(Const.MYOSOTIS_COORD_Z_TAG);
                         player.teleportTo(coordX, coordY, coordZ);
                     }
                 }
