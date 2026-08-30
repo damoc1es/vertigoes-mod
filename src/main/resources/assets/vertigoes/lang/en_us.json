@@ -9,8 +9,10 @@
   "item.vertigoes.animal_pearl": "Primal Pearl",
   "item.vertigoes.aquatic_pearl": "Primal Pearl",
   "item.vertigoes.death_pearl": "Primal Pearl",
-
   "block.vertigoes.plant_essence": "Plant Essence",
+
+  "item.vertigoes.unstoppable_force": "The Unstoppable Force",
+  "block.vertigoes.glass_heart": "Heart of Glass",
 
   "vertigoes.configuration.title": "Vertigoes Configs",
   "vertigoes.configuration.section.vertigoes.common.toml": "Vertigoes Configs",

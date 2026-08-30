@@ -1,18 +1,24 @@
 package dev.damocles.vertigoes;
 
+import java.util.function.Supplier;
+
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import dev.damocles.vertigoes.block.GlassHeartBlock;
+import dev.damocles.vertigoes.block.GlassHeartBlockEntity;
 import dev.damocles.vertigoes.block.MyosotisBlock;
 import dev.damocles.vertigoes.block.PlantEssenceBlock;
 import dev.damocles.vertigoes.block.PottedMyosotisBlock;
 import dev.damocles.vertigoes.item.EnderMyosotisItem;
+import dev.damocles.vertigoes.item.UnstoppableForceItem;
 import dev.damocles.vertigoes.item.pearl.AnimalPearlItem;
 import dev.damocles.vertigoes.item.pearl.AquaticPearlItem;
 import dev.damocles.vertigoes.item.pearl.DeathPearlItem;
 import dev.damocles.vertigoes.item.pearl.PlantPearlItem;
 import dev.damocles.vertigoes.item.pearl.PrimalPearlItem;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -22,6 +28,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -43,11 +50,14 @@ public class Vertigoes {
     public static final String MODID = "vertigoes";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "vertigoes" namespace
+
+    // Deferred Register to hold Blocks which will all be registered under the "vertigoes" namespace
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "vertigoes" namespace
+    // Deferred Register to hold Items which will all be registered under the "vertigoes" namespace
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "vertigoes" namespace
+    // Deferred Register to hold Items which will all be registered under the "vertigoes" namespace
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
+    // Deferred Register to hold CreativeModeTabs which will all be registered under the "vertigoes" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final DeferredBlock<Block> MYOSOTIS = BLOCKS.registerBlock("myosotis", MyosotisBlock::new);
@@ -64,6 +74,14 @@ public class Vertigoes {
 
     public static final DeferredBlock<Block> PLANT_ESSENCE = BLOCKS.registerBlock("plant_essence", PlantEssenceBlock::new);
     public static final DeferredItem<BlockItem> PLANT_ESSENCE_ITEM = ITEMS.registerSimpleBlockItem("plant_essence", PLANT_ESSENCE);
+
+    public static final DeferredItem<Item> UNSTOPPABLE_FORCE = ITEMS.registerItem("unstoppable_force", UnstoppableForceItem::new);
+
+    public static final DeferredBlock<Block> GLASS_HEART = BLOCKS.registerBlock("glass_heart", GlassHeartBlock::new);
+    public static final DeferredItem<BlockItem> GLASS_HEART_ITEM = ITEMS.registerSimpleBlockItem("glass_heart", GLASS_HEART);
+    // (Can be DeferredHolder<BlockEntityType<?>, BlockEntityType<RockBlockEntity>> if you prefer)
+    public static final Supplier<BlockEntityType<GlassHeartBlockEntity>> GLASS_HEART_ENTITY = BLOCK_ENTITIES.register("glass_heart",
+             () -> BlockEntityType.Builder.of(GlassHeartBlockEntity::new, GLASS_HEART.get()).build(null));
 
     // Creates a creative tab with the id "vertigoes:vertigoes_tab"
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> VERTIGOES_TAB = CREATIVE_MODE_TABS.register("vertigoes_tab", () -> CreativeModeTab.builder()
@@ -85,6 +103,8 @@ public class Vertigoes {
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so block entities get registered
+        BLOCK_ENTITIES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 

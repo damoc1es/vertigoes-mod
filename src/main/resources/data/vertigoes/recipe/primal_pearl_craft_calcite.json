@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CNC",
+    "CMC"
+  ],
+  "key": {
+    "C": { "item": "minecraft:calcite" },
+    "N": { "item": "minecraft:nether_star" },
+    "M": { "item": "vertigoes:myosotis" }
+  },
+  "result": {
+    "id": "vertigoes:primal_pearl"
+  }
+}

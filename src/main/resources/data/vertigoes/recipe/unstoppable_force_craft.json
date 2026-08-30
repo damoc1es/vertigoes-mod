@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    "DEF",
+    "GHI"
+  ],
+  "key": {
+    "E": { "item": "vertigoes:death_pearl" },
+    "A": { "item": "minecraft:grass_block" },
+    "I": { "item": "minecraft:ghast_tear" },
+    "B": { "item": "vertigoes:myosotis" },
+    "H": { "item": "vertigoes:ender_myosotis" },
+    "C": { "item": "minecraft:cobblestone" },
+    "G": { "item": "minecraft:blaze_rod" },
+    "D": { "item": "minecraft:elytra" },
+    "F": { "item": "minecraft:dragon_head" }
+  },
+  "result": {
+    "id": "vertigoes:unstoppable_force"
+  }
+}

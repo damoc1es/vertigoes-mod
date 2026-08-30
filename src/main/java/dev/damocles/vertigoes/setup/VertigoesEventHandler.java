@@ -7,6 +7,7 @@ import dev.damocles.vertigoes.item.pearl.AnimalPearlItem;
 import dev.damocles.vertigoes.item.pearl.AquaticPearlItem;
 import dev.damocles.vertigoes.item.pearl.DeathPearlItem;
 import dev.damocles.vertigoes.item.pearl.PrimalPearlItem;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.Villager;
@@ -18,6 +19,7 @@ import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 import net.neoforged.neoforge.event.entity.living.LivingConversionEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 
 @EventBusSubscriber(modid = Vertigoes.MODID)
 public class VertigoesEventHandler {
@@ -82,6 +84,16 @@ public class VertigoesEventHandler {
                     }
                 }
             } catch(ObfuscationReflectionHelper.UnableToAccessFieldException ignored) {}
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPunchingWithForce(LivingKnockBackEvent event) {
+        LivingEntity damaged = event.getEntity();
+        if(damaged.getLastDamageSource() != null && damaged.getLastDamageSource().getEntity() instanceof LivingEntity source) {
+            if(source.getMainHandItem().is(Vertigoes.UNSTOPPABLE_FORCE.get()) && event.getStrength() < 2F) {
+                event.setStrength(2F); // equivalent of a Knockback IV enchantment
+            }
         }
     }
 }

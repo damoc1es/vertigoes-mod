@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SDS",
+    "SNS",
+    "SMS"
+  ],
+  "key": {
+    "S": { "item": "minecraft:stone" },
+    "N": { "item": "minecraft:nether_star" },
+    "D": { "item": "minecraft:diamond" },
+    "M": { "item": "vertigoes:myosotis" }
+  },
+  "result": {
+    "id": "vertigoes:primal_pearl"
+  }
+}
