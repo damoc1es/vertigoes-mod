@@ -9,3 +9,5 @@ I recommend JEI to see in-game descriptions.
 Download links:
 - [Modrinth](https://modrinth.com/mod/vertigoes)
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/vertigoes)
+
+For issues please use [github.com/damoc1es/vertigoes-mod/issues](https://github.com/damoc1es/vertigoes-mod/issues/).
