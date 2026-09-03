@@ -18,5 +18,5 @@ Possible sections: {Added, Changed, Deprecated, Removed, Fixed, Security}.
 - Change LICENSE to `Apache License 2.0`
 
 
-[Unreleased]: https://git.damocles.dev/damocles/vertigoes-mod/compare/21.1-0.1.0...HEAD
+[Unreleased]: https://git.damocles.dev/damocles/vertigoes-mod/compare/21.1-0.1.0...main
 [21.1-0.1.0]: https://git.damocles.dev/damocles/vertigoes-mod/src/tag/21.1-0.1.0
