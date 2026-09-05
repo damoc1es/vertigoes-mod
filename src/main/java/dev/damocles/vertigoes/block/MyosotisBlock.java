@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import dev.damocles.vertigoes.Const;
+import dev.damocles.vertigoes.Vertigoes;
 
 
 public class MyosotisBlock extends FlowerBlock {
@@ -38,14 +39,17 @@ public class MyosotisBlock extends FlowerBlock {
         // Block.dropResources
         if (level instanceof ServerLevel) {
             getDrops(blockState, (ServerLevel)level, pos, blockEntity, player, tool).forEach((itemDrop) -> {
-                // Set tag of drop with the coordinates and dimension of last placement
-                CompoundTag tags = new CompoundTag();
-                tags.putDouble(Const.MYOSOTIS_COORD_X_TAG, pos.getX());
-                tags.putDouble(Const.MYOSOTIS_COORD_Y_TAG, pos.getY());
-                tags.putDouble(Const.MYOSOTIS_COORD_Z_TAG, pos.getZ());
-                tags.putString(Const.MYOSOTIS_DIMENSION_TAG, level.dimension().location().toString());
+                // This is to avoid setting tags to the pot when breaking a potted Myosotis
+                if(itemDrop.is(Vertigoes.MYOSOTIS_ITEM.asItem())) {
+                    // Set tag of drop with the coordinates and dimension of last placement
+                    CompoundTag tags = new CompoundTag();
+                    tags.putDouble(Const.MYOSOTIS_COORD_X_TAG, pos.getX());
+                    tags.putDouble(Const.MYOSOTIS_COORD_Y_TAG, pos.getY());
+                    tags.putDouble(Const.MYOSOTIS_COORD_Z_TAG, pos.getZ());
+                    tags.putString(Const.MYOSOTIS_DIMENSION_TAG, level.dimension().location().toString());
 
-                itemDrop.set(DataComponents.CUSTOM_DATA, CustomData.of(tags));
+                    itemDrop.set(DataComponents.CUSTOM_DATA, CustomData.of(tags));
+                }
                 popResource(level, pos, itemDrop);
             });
             blockState.spawnAfterBreak((ServerLevel)level, pos, tool, true);

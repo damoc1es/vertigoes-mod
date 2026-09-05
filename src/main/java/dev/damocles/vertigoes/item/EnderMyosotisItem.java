@@ -70,15 +70,15 @@ public class EnderMyosotisItem extends Item {
                         double coordY = currentTags.getDouble(Const.MYOSOTIS_COORD_Y_TAG);
                         double coordZ = currentTags.getDouble(Const.MYOSOTIS_COORD_Z_TAG);
                         player.teleportTo(coordX, coordY, coordZ);
+
+                        player.awardStat(Stats.ITEM_USED.get(this));
+                        if (!player.getAbilities().instabuild) {
+                            itemstack.shrink(1);
+                        }
+
+                        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
                     }
                 }
-
-                player.awardStat(Stats.ITEM_USED.get(this));
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-
-                return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
             }
             return InteractionResultHolder.fail(itemstack);
         }
