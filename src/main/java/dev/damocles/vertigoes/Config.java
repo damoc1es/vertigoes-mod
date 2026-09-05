@@ -33,6 +33,16 @@ public class Config {
         .comment("Whether Death Primal Pearl variant gets disabled if you cure a Zombie Villager")
         .define("primalPearlDeathCanBeDisabled", true);
 
+    // The Unstoppable Force
+
+    public static final ModConfigSpec.BooleanValue UNSTOPPABLE_FORCE_END_TO_OVERWORLD = BUILDER
+        .comment("Whether The Unstoppable Force can teleport The End -> Overworld (if Any -> Overworld config disabled)")
+        .define("unstoppableForceEndToOverworld", true);
+
+    public static final ModConfigSpec.BooleanValue UNSTOPPABLE_FORCE_ANY_DIM_TO_OVERWORLD = BUILDER
+        .comment("Whether The Unstoppable Force can teleport Any Dimension -> Overworld")
+        .define("unstoppableForceAnyDimToOverworld", true);
+
     // Heart of Glass area of effect
 
     public static final ModConfigSpec.IntValue GLASS_HEART_RADIUS = BUILDER

@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 Possible sections: {Added, Changed, Deprecated, Removed, Fixed, Security}.
 
+## Releases
+
+- [Unreleased]
+- [21.1-0.1.1]
+- [21.1-0.1.0]
+
+## [21.1-0.1.1]
+
+### Changed
+
+- The Unstoppable Force usage in dimensions other than Overworld is now configurable
+
+### Fixed
+
+- Don't tag pot when breaking potted Myosotis
+- Don't consume Ender Myosotis when used in the wrong dimension
+
 ## [21.1-0.1.0]
 
 ### Added
@@ -18,5 +35,6 @@ Possible sections: {Added, Changed, Deprecated, Removed, Fixed, Security}.
 - Change LICENSE to `Apache License 2.0`
 
 
-[Unreleased]: https://git.damocles.dev/damocles/vertigoes-mod/compare/21.1-0.1.0...main
+[Unreleased]: https://git.damocles.dev/damocles/vertigoes-mod/compare/21.1-0.1.1...main
+[21.1-0.1.1]: https://git.damocles.dev/damocles/vertigoes-mod/src/tag/21.1-0.1.1
 [21.1-0.1.0]: https://git.damocles.dev/damocles/vertigoes-mod/src/tag/21.1-0.1.0

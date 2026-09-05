@@ -2,6 +2,7 @@ package dev.damocles.vertigoes.item;
 
 import java.util.List;
 
+import dev.damocles.vertigoes.Config;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -9,7 +10,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -56,12 +56,32 @@ public class UnstoppableForceItem extends Item {
         );
     }
 
+    private ResourceKey<Level> getNextDimension(ResourceKey<Level> dimension) {
+        if(dimension == Level.OVERWORLD) {
+            return Level.END;
+        }
+
+        if(dimension == Level.END && Config.UNSTOPPABLE_FORCE_END_TO_OVERWORLD.getAsBoolean()) {
+            return Level.OVERWORLD;
+        }
+
+        if(Config.UNSTOPPABLE_FORCE_ANY_DIM_TO_OVERWORLD.getAsBoolean()) {
+            return Level.OVERWORLD;
+        }
+
+        return null;
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
 
         if(level.getBlockState(context.getClickedPos()).is(Blocks.BEDROCK) && level.getServer() != null) {
-            ResourceKey<Level> nextDimension = context.getLevel().dimension() == Level.OVERWORLD ? Level.END : Level.OVERWORLD;
+            ResourceKey<Level> nextDimension = getNextDimension(context.getLevel().dimension());
+            if(nextDimension == null) {
+                return InteractionResult.PASS;
+            }
+
             ServerLevel nextLevel = context.getLevel().getServer().getLevel(nextDimension);
             Player player = context.getPlayer();
 

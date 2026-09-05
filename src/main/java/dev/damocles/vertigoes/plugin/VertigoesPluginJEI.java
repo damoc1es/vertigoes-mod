@@ -26,6 +26,9 @@ public class VertigoesPluginJEI implements IModPlugin {
         Boolean aquaticPearlCanBeDisabled = Config.AQUATIC_PEARL_CAN_BE_DISABLED.getAsBoolean();
         Boolean deathPearlCanBeDisabled = Config.DEATH_PEARL_CAN_BE_DISABLED.getAsBoolean();
 
+        Boolean unstoppableForceEndToOverworld = Config.UNSTOPPABLE_FORCE_END_TO_OVERWORLD.getAsBoolean();
+        Boolean unstoppableForceAnyDimToOverworld = Config.UNSTOPPABLE_FORCE_ANY_DIM_TO_OVERWORLD.getAsBoolean();
+
         Integer heartOfGlassAoE = Config.GLASS_HEART_RADIUS.getAsInt()*2+1;
 
         registry.addIngredientInfo(Vertigoes.MYOSOTIS_ITEM.get(),
@@ -81,10 +84,18 @@ public class VertigoesPluginJEI implements IModPlugin {
         registry.addIngredientInfo(Vertigoes.PLANT_ESSENCE_ITEM.get(),
             Component.literal("Only obtainable by using the Plant Life Primal Pearl."));
 
+        String unstoppableForceString = """
+            Breaking a Beacon with it drops instead a Heart of Glass.
+            Using it on Bedrock in the Overworld teleports you to The End.""";
+
+        if(unstoppableForceAnyDimToOverworld) {
+            unstoppableForceString += " Using it on Bedrock in any other dimension teleports you to the Overworld.";
+        } else if(unstoppableForceEndToOverworld) {
+            unstoppableForceString += " Using it on Bedrock in The End teleports you to the Overworld.";
+        }
+
         registry.addIngredientInfo(Vertigoes.UNSTOPPABLE_FORCE.get(),
-            Component.literal("""
-                Using it on Bedrock teleports you to The End.
-                Breaking a Beacon with it drops instead a Heart of Glass."""));
+            Component.literal(unstoppableForceString));
 
         registry.addIngredientInfo(Vertigoes.GLASS_HEART_ITEM.get(),
             Component.literal(String.format("""

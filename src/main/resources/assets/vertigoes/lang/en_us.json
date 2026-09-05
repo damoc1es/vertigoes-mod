@@ -24,6 +24,8 @@
   "vertigoes.configuration.primalPearlAnimalCanBeDisabled": "Animal Life Primal Pearl can be disabled",
   "vertigoes.configuration.primalPearlAquaticCanBeDisabled": "Aquatic Life Primal Pearl can be disabled",
   "vertigoes.configuration.primalPearlDeathCanBeDisabled": "Death Primal Pearl can be disabled",
+  "vertigoes.configuration.unstoppableForceEndToOverworld": "The Unstoppable Force usable in The End",
+  "vertigoes.configuration.unstoppableForceAnyDimToOverworld": "The Unstoppable Force usable in any dimension",
   "vertigoes.configuration.glassHeartRadius": "Heart of Glass radius",
   "vertigoes.configuration.enableDebugging": "Enable Debugging"
 }
