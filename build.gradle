@@ -180,6 +180,21 @@ publishing {
         maven {
             url "file://${project.projectDir}/repo"
         }
+        if(System.getenv('FORGEJO_PAT')) {
+            maven {
+                name = "Forgejo"
+                url = uri("https://git.damocles.dev/api/packages/damocles/maven")
+
+                credentials(HttpHeaderCredentials) {
+                    name = "Authorization"
+                    value = "token ${System.getenv('FORGEJO_PAT')}"
+                }
+
+                authentication {
+                    header(HttpHeaderAuthentication)
+                }
+            }
+        }
     }
 }
 
