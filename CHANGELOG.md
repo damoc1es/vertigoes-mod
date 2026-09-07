@@ -9,6 +9,18 @@ Possible sections: {Added, Changed, Deprecated, Removed, Fixed, Security}.
 - [21.1-0.1.1]
 - [21.1-0.1.0]
 
+## [Unreleased]
+
+### Added
+
+- Add the Fragility effect (with every level, take 2x damage from non-player damage sources)
+- Add the Fragility and Velocity potion variants
+  - Velocity gives Fragility, Haste, and Speed
+
+### Changed
+
+- Update Primal Pearl (and its variants) textures (smaller and animated)
+
 ## [21.1-0.1.1]
 
 ### Changed
