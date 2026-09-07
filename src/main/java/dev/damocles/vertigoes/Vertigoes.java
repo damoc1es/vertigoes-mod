@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import dev.damocles.vertigoes.alchemy.FragilityEffect;
+import dev.damocles.vertigoes.alchemy.FragilityPotion;
+import dev.damocles.vertigoes.alchemy.VelocityPotion;
 import dev.damocles.vertigoes.block.GlassHeartBlock;
 import dev.damocles.vertigoes.block.GlassHeartBlockEntity;
 import dev.damocles.vertigoes.block.MyosotisBlock;
@@ -18,29 +21,42 @@ import dev.damocles.vertigoes.item.pearl.AquaticPearlItem;
 import dev.damocles.vertigoes.item.pearl.DeathPearlItem;
 import dev.damocles.vertigoes.item.pearl.PlantPearlItem;
 import dev.damocles.vertigoes.item.pearl.PrimalPearlItem;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @Mod(Vertigoes.MODID)
+@EventBusSubscriber(modid = Vertigoes.MODID)
 public class Vertigoes {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "vertigoes";
@@ -52,6 +68,8 @@ public class Vertigoes {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, MODID);
+    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MODID);
 
     // Myosotis
     public static final DeferredBlock<Block> MYOSOTIS = BLOCKS.registerBlock("myosotis", MyosotisBlock::new);
@@ -79,6 +97,14 @@ public class Vertigoes {
     public static final Supplier<BlockEntityType<GlassHeartBlockEntity>> GLASS_HEART_ENTITY = BLOCK_ENTITIES.register("glass_heart",
              () -> BlockEntityType.Builder.of(GlassHeartBlockEntity::new, GLASS_HEART.get()).build(null));
 
+    // Fragility effect & related potions
+    public static final Holder<MobEffect> FRAGILITY_EFFECT = MOB_EFFECTS.register("fragility", FragilityEffect::new);
+    // TODO: Is there any way to avoid lang entries, and automatically create them?
+    public static final Holder<Potion> FRAGILITY_POTION = POTIONS.register("fragility", FragilityPotion::new);
+    public static final Holder<Potion> VELOCITY_POTION = POTIONS.register("velocity", VelocityPotion::normal);
+    public static final Holder<Potion> VELOCITY_POTION_LONGER = POTIONS.register("velocity_longer", VelocityPotion::longer);
+    public static final Holder<Potion> VELOCITY_POTION_ENHANCED = POTIONS.register("velocity_enhanced", VelocityPotion::enhanced);
+
     // Creates a creative tab with the id "vertigoes:vertigoes_tab"
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> VERTIGOES_TAB = CREATIVE_MODE_TABS.register("vertigoes_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.vertigoes"))
@@ -86,6 +112,12 @@ public class Vertigoes {
             .displayItems((parameters, output) -> {
                 for(DeferredHolder<Item, ? extends Item> entry : ITEMS.getEntries()) {
                     output.accept(entry.get());
+                }
+
+                for(DeferredHolder<Potion, ? extends Potion> entry : POTIONS.getEntries()) {
+                    ItemStack potion = Items.POTION.getDefaultInstance();
+                    potion.set(DataComponents.POTION_CONTENTS, new PotionContents(entry));
+                    output.accept(potion);
                 }
             }).build());
 
@@ -98,6 +130,8 @@ public class Vertigoes {
         ITEMS.register(modEventBus);
         BLOCK_ENTITIES.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        MOB_EFFECTS.register(modEventBus);
+        POTIONS.register(modEventBus);
 
         FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
         pot.addPlant(MYOSOTIS.getId(), POTTED_MYOSOTIS);
@@ -120,5 +154,15 @@ public class Vertigoes {
             event.accept(MYOSOTIS_ITEM);
             event.accept(PLANT_ESSENCE_ITEM);
         }
+    }
+
+    @SubscribeEvent
+    public static void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
+        PotionBrewing.Builder builder = event.getBuilder();
+
+        builder.addMix(Potions.AWKWARD, MYOSOTIS_ITEM.get(), FRAGILITY_POTION);
+        builder.addMix(FRAGILITY_POTION, ENDER_MYOSOTIS.get(), VELOCITY_POTION);
+        builder.addMix(VELOCITY_POTION, Items.REDSTONE, VELOCITY_POTION_LONGER);
+        builder.addMix(VELOCITY_POTION, Items.GLOWSTONE_DUST, VELOCITY_POTION_ENHANCED);
     }
 }

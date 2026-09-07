@@ -13,4 +13,8 @@ public class Const {
     public static final String PRIMAL_PEARL_DEATH_PROGRESS_TAG = "vertigoes.deathprogress";
 
     public static final float DEATH_PEARL_DMG_MODIFIER = (4 * 2.5F); // equivalent to Smite IV
+
+    public static final int NORMAL_POTION_LENGTH = 3 * 60 * 20; // 3 minutes
+    public static final int LONGER_POTION_LENGTH = 8 * 60 * 20; // 8 minutes
+    public static final int ENHANCED_POTION_LENGTH = 3 * 30 * 20; // 1.5 minutes
 }

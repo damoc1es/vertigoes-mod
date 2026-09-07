@@ -5,8 +5,14 @@ import dev.damocles.vertigoes.Vertigoes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 @JeiPlugin
 public class VertigoesPluginJEI implements IModPlugin {
@@ -102,5 +108,17 @@ public class VertigoesPluginJEI implements IModPlugin {
                 In a %dx%dx%d area of effect every player receives Regeneration II. Glows and can be waterlogged.
                 The potion effect can be changed by using a Lingering Potion of the desired effect on it.""",
                 heartOfGlassAoE, heartOfGlassAoE, heartOfGlassAoE)));
+
+        String fragilityEffectText = """
+            Each level of Fragility makes the player take double damage
+            (only applicable when the damage source is not a player).
+            E.g., Fragility II => player takes 4x damage.""";
+
+        for(DeferredHolder<Potion, ? extends Potion> entry : Vertigoes.POTIONS.getEntries()) {
+            // for now all added potions have the fragility effect; if more potions are added, this list should be filtered
+            ItemStack potion = Items.POTION.getDefaultInstance();
+            potion.set(DataComponents.POTION_CONTENTS, new PotionContents(entry));
+            registry.addItemStackInfo(potion, Component.literal(fragilityEffectText));
+        }
     }
 }

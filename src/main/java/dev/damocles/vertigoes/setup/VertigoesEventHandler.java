@@ -7,6 +7,7 @@ import dev.damocles.vertigoes.item.pearl.AnimalPearlItem;
 import dev.damocles.vertigoes.item.pearl.AquaticPearlItem;
 import dev.damocles.vertigoes.item.pearl.DeathPearlItem;
 import dev.damocles.vertigoes.item.pearl.PrimalPearlItem;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.ZombieVillager;
@@ -51,6 +52,16 @@ public class VertigoesEventHandler {
         if(event.getEntity() instanceof Player) {
             if(DeathPearlItem.tryCancelUndeadAttackUponPlayer((Player) event.getEntity(), event.getSource())) {
                 event.setNewDamage(0);
+            } else if(event.getEntity().hasEffect(Vertigoes.FRAGILITY_EFFECT) && !(event.getSource().getEntity() instanceof Player)) {
+                MobEffectInstance instance = event.getEntity().getEffect(Vertigoes.FRAGILITY_EFFECT);
+                // new damage will be amplified for each Fragility level
+                // => Fragility I takes double damage
+                // => Fragility II takes quadruple damage
+                // ...
+                if(instance.getAmplifier() >= 0) {
+                    float damage = event.getNewDamage() * (instance.getAmplifier() + 1) * 2;
+                    event.setNewDamage(damage);
+                }
             }
         }
     }
