@@ -20,6 +20,7 @@ Possible sections: {Added, Changed, Deprecated, Removed, Fixed, Security}.
 ### Changed
 
 - Update Primal Pearl (and its variants) textures (smaller and animated)
+- Update The Unstoppable Force texture (animated and colorful)
 
 ## [21.1-0.1.1]
 
