@@ -76,10 +76,10 @@ public class MyosotisBlock extends FlowerBlock {
                     dim = dim.substring(dim.indexOf(":")+1);
                 }
 
-                tooltip.add(Component.literal(String.format("(x=%d, y=%d, z=%d) in %s", (int)coordX, (int)coordY, (int)coordZ, dim)).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.literal(String.format("(x=%d, y=%d, z=%d) @ %s", (int)coordX, (int)coordY, (int)coordZ, dim)).withStyle(ChatFormatting.GRAY));
             }
         } else {
-            tooltip.add(Component.literal("Forget me not..").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("block.vertigoes.myosotis.tooltip").withStyle(ChatFormatting.GRAY));
         }
     }
 }

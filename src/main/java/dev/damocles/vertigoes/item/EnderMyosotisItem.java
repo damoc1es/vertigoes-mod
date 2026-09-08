@@ -37,12 +37,17 @@ public class EnderMyosotisItem extends Item {
                     dim = dim.substring(dim.indexOf(":")+1);
                 }
 
-                tooltipComponents.add(Component.literal(String.format("RIGHT-CLICK to teleport to (x=%.2f, y=%.2f, z=%.2f)", coordX, coordY, coordZ)).withStyle(ChatFormatting.GRAY));
-                tooltipComponents.add(Component.literal(String.format("IF you're in %s", dim)).withStyle(ChatFormatting.GRAY));
-                tooltipComponents.add(Component.literal("SNEAK+RIGHT-CLICK to change coords").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(Component.translatable("item.vertigoes.ender_myosotis.use")
+                                                .append(String.format(" (x=%.2f, y=%.2f, z=%.2f)", coordX, coordY, coordZ))
+                                                .withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(Component.literal("(")
+                                                .append(Component.translatable("item.vertigoes.ender_myosotis.usability"))
+                                                .append(String.format(" %s)", dim))
+                                                .withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(Component.translatable("item.vertigoes.ender_myosotis.change_coords").withStyle(ChatFormatting.GRAY));
             }
         } else {
-            tooltipComponents.add(Component.literal("Forget me not..").withStyle(ChatFormatting.GRAY));
+            tooltipComponents.add(Component.translatable("block.vertigoes.myosotis.tooltip").withStyle(ChatFormatting.GRAY));
         }
     }
 

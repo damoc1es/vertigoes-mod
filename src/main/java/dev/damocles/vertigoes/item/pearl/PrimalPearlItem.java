@@ -105,24 +105,27 @@ public class PrimalPearlItem extends PearlItem {
         if(stack.has(DataComponents.CUSTOM_DATA)) {
             CompoundTag tags = stack.get(DataComponents.CUSTOM_DATA).copyTag();
             if(tags.contains(Const.PRIMAL_PEARL_ANIMAL_PROGRESS_TAG)) {
-                tooltipComponents.add(Component.literal(String.format("%d / %d Bred animals",
+                tooltipComponents.add(Component.literal(String.format("%d / %d ",
                                                         tags.getInt(Const.PRIMAL_PEARL_ANIMAL_PROGRESS_TAG),
                                                         Config.ANIMAL_PEARL_REQ.getAsInt()))
-                                                        .withStyle(ChatFormatting.RED));
+                                                .append(Component.translatable("item.vertigoes.primal_pearl.animal_req"))
+                                                .withStyle(ChatFormatting.RED));
             }
 
             if(tags.contains(Const.PRIMAL_PEARL_AQUATIC_PROGRESS_TAG)) {
-                tooltipComponents.add(Component.literal(String.format("%d / %d Drowned killed",
+                tooltipComponents.add(Component.literal(String.format("%d / %d ",
                                                         tags.getInt(Const.PRIMAL_PEARL_AQUATIC_PROGRESS_TAG),
                                                         Config.AQUATIC_PEARL_REQ.getAsInt()))
-                                                        .withStyle(ChatFormatting.DARK_AQUA));
+                                                .append(Component.translatable("item.vertigoes.primal_pearl.aquatic_req"))
+                                                .withStyle(ChatFormatting.DARK_AQUA));
             }
 
             if(tags.contains(Const.PRIMAL_PEARL_DEATH_PROGRESS_TAG)) {
-                tooltipComponents.add(Component.literal(String.format("%d / %d Villagers killed",
+                tooltipComponents.add(Component.literal(String.format("%d / %d ",
                                                         tags.getInt(Const.PRIMAL_PEARL_DEATH_PROGRESS_TAG),
                                                         Config.DEATH_PEARL_REQ.getAsInt()))
-                                                        .withStyle(ChatFormatting.DARK_GRAY));
+                                                .append(Component.translatable("item.vertigoes.primal_pearl.death_req"))
+                                                .withStyle(ChatFormatting.DARK_GRAY));
             }
         }
     }

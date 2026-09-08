@@ -26,19 +26,24 @@ public class PearlItem extends Item {
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         switch (type) {
             case PRIMAL:
-                tooltipComponents.add(Component.literal("Immaculate").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(Component.translatable("item.vertigoes.primal_pearl.tooltip")
+                                        .withStyle(ChatFormatting.GRAY));
                 break;
             case PLANT:
-                tooltipComponents.add(Component.literal("Plant Life").withStyle(ChatFormatting.GREEN));
+                tooltipComponents.add(Component.translatable("item.vertigoes.plant_pearl.tooltip")
+                                        .withStyle(ChatFormatting.GREEN));
                 break;
             case ANIMAL:
-                tooltipComponents.add(Component.literal("Animal Life").withStyle(ChatFormatting.RED));
+                tooltipComponents.add(Component.translatable("item.vertigoes.animal_pearl.tooltip")
+                                        .withStyle(ChatFormatting.RED));
                 break;
             case AQUATIC:
-                tooltipComponents.add(Component.literal("Aquatic Life").withStyle(ChatFormatting.BLUE));
+                tooltipComponents.add(Component.translatable("item.vertigoes.aquatic_pearl.tooltip")
+                                        .withStyle(ChatFormatting.BLUE));
                 break;
             case DEATH:
-                tooltipComponents.add(Component.literal("Anti-Life").withStyle(ChatFormatting.DARK_GRAY));
+                tooltipComponents.add(Component.translatable("item.vertigoes.death_pearl.tooltip")
+                                        .withStyle(ChatFormatting.DARK_GRAY));
                 break;
             default:
                 break;

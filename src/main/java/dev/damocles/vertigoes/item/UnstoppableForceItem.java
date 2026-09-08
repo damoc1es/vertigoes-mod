@@ -116,7 +116,7 @@ public class UnstoppableForceItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.literal("What would happen if it met The Immovable Object?")
+        tooltipComponents.add(Component.translatable("item.vertigoes.unstoppable_force.tooltip")
                                 .withStyle(ChatFormatting.GRAY)
                                 .withStyle(ChatFormatting.ITALIC));
     }
