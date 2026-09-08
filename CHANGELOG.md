@@ -16,11 +16,16 @@ Possible sections: {Added, Changed, Deprecated, Removed, Fixed, Security}.
 - Add the Fragility effect (with every level, take 2x damage from non-player damage sources)
 - Add the Fragility and Velocity potion variants
   - Velocity gives Fragility, Haste, and Speed
+- Mention the Aquatic Pearl's placing water ability
 
 ### Changed
 
 - Update Primal Pearl (and its variants) textures (smaller and animated)
 - Update The Unstoppable Force texture (animated and colorful)
+
+### Fixed
+
+- Don't consume the Aquatic Pearl when right-clicking to place water
 
 ## [21.1-0.1.1]
 

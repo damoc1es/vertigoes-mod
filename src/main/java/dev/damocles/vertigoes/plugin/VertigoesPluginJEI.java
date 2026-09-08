@@ -69,7 +69,7 @@ public class VertigoesPluginJEI implements IModPlugin {
 
         String aquaticPearlText = """
             Obtained by killing %d Drowned with a Primal Pearl in inventory.
-            While in main hand, gain Water Breathing.""";
+            While in main hand, gain Water Breathing. On right-click it will act like a water bucket.""";
         if(aquaticPearlCanBeDisabled) {
             aquaticPearlText += " Turns back into a Primal Pearl if you kill any fish/water friendly creature.";
         }
