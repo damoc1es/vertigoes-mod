@@ -17,4 +17,8 @@ public class Const {
     public static final int NORMAL_POTION_LENGTH = 3 * 60 * 20; // 3 minutes
     public static final int LONGER_POTION_LENGTH = 8 * 60 * 20; // 8 minutes
     public static final int ENHANCED_POTION_LENGTH = 3 * 30 * 20; // 1.5 minutes
+
+    public static final String COMPROMISE_RING_NEXT_TRIGGER = "vertigoes.compromise";
+
+    public static final int ONE_MINUTE = 60;
 }

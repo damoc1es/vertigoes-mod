@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MOB",
+    "O O",
+    "GO "
+  ],
+  "key": {
+      "M": { "item": "vertigoes:ender_myosotis" },
+      "O": { "item": "minecraft:obsidian" },
+      "B": { "item": "minecraft:blaze_powder" },
+      "G": { "item": "minecraft:glowstone_dust" }
+  },
+  "result": {
+    "id": "vertigoes:compromise_ring"
+  }
+}

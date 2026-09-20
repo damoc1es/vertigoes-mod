@@ -45,6 +45,9 @@
 	"item.minecraft.lingering_potion.effect.velocity_enhanced": "Lingering Potion of Velocity",
 	"item.minecraft.tipped_arrow.effect.velocity_enhanced": "Arrow of Velocity",
 
+  "item.vertigoes.compromise_ring": "Ring of Compromise",
+  "item.vertigoes.compromise_ring.despair": "Despair..",
+
   "vertigoes.configuration.title": "Vertigoes Configs",
   "vertigoes.configuration.section.vertigoes.common.toml": "Vertigoes Configs",
   "vertigoes.configuration.section.vertigoes.common.toml.title": "Vertigoes Configs",

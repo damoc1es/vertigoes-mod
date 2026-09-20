@@ -14,6 +14,7 @@ import dev.damocles.vertigoes.block.GlassHeartBlockEntity;
 import dev.damocles.vertigoes.block.MyosotisBlock;
 import dev.damocles.vertigoes.block.PlantEssenceBlock;
 import dev.damocles.vertigoes.block.PottedMyosotisBlock;
+import dev.damocles.vertigoes.item.CompromiseRingItem;
 import dev.damocles.vertigoes.item.EnderMyosotisItem;
 import dev.damocles.vertigoes.item.UnstoppableForceItem;
 import dev.damocles.vertigoes.item.pearl.AnimalPearlItem;
@@ -104,6 +105,9 @@ public class Vertigoes {
     public static final Holder<Potion> VELOCITY_POTION = POTIONS.register("velocity", VelocityPotion::normal);
     public static final Holder<Potion> VELOCITY_POTION_LONGER = POTIONS.register("velocity_longer", VelocityPotion::longer);
     public static final Holder<Potion> VELOCITY_POTION_ENHANCED = POTIONS.register("velocity_enhanced", VelocityPotion::enhanced);
+
+    // Ring of Compromise
+    public static final DeferredItem<Item> COMPROMISE_RING = ITEMS.registerItem("compromise_ring", CompromiseRingItem::new);
 
     // Creates a creative tab with the id "vertigoes:vertigoes_tab"
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> VERTIGOES_TAB = CREATIVE_MODE_TABS.register("vertigoes_tab", () -> CreativeModeTab.builder()

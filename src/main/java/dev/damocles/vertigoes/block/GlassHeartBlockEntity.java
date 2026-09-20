@@ -46,7 +46,7 @@ public class GlassHeartBlockEntity extends BlockEntity {
 
             for(Entity entity : list) {
                 if(entity instanceof Player player) {
-                    player.addEffect(new MobEffectInstance(effect, 10*20, amplifier, true, true));
+                    player.addEffect(new MobEffectInstance(effect, 10 * (int)level.tickRateManager().tickrate(), amplifier, true, true));
                 }
             }
         }

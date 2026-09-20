@@ -120,5 +120,8 @@ public class VertigoesPluginJEI implements IModPlugin {
             potion.set(DataComponents.POTION_CONTENTS, new PotionContents(entry));
             registry.addItemStackInfo(potion, Component.literal(fragilityEffectText));
         }
+
+        registry.addIngredientInfo(Vertigoes.COMPROMISE_RING.get(),
+            Component.literal("While in hotbar, after 1 minute, get hurt one heart of magic damage, get Strength IV and Fragility II."));
     }
 }

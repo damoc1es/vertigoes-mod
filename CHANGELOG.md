@@ -9,6 +9,13 @@ Possible sections: {Added, Changed, Deprecated, Removed, Fixed, Security}.
 - [21.1-0.1.1]
 - [21.1-0.1.0]
 
+## [Unreleased]
+
+### Added
+
+- Add the Ring of Compromise
+  - while in hotbar, every minute get hurt one heart of magic damage and get Strength IV and Fragility II
+
 ## [21.1-0.2.0]
 
 ### Added
